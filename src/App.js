@@ -13,10 +13,12 @@ import uuid from "uuid/v4";
 //     amount: 1200
 //   }
 // ];
-
+const initialExpenses = localStorage.getItem("expenses")
+  ? JSON.parse(localStorage.getItem("expenses"))
+  : [];
 function App() {
   // all expenses, add expense
-  const [expenses, setExpenses] = useState([]);
+  const [expenses, setExpenses] = useState(initialExpenses);
   // single expense
   const [charge, setCharge] = useState("");
   // single amount
@@ -27,6 +29,11 @@ function App() {
   const [edit, setEdit] = useState(false);
   // id
   const [id, setId] = useState(0);
+  useEffect(() => {
+    console.log("called");
+
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
   // *********** functionality **************
   //add charge
   const handleCharge = e => {
